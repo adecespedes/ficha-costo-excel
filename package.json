@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "main": "electron.cjs",
+  "description": "Procesador de fichas de costo",
+  "author": "Alejandro de Céspedes",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -28,6 +30,7 @@
     "react-dom": "^19.1.0",
     "react-toastify": "^11.0.5",
     "sheetjs-style": "^0.15.8",
+    "sweetalert2": "^11.21.2",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

@@ -33,6 +33,22 @@ ipcMain.on("save-excel-files", async (event, archivos) => {
   event.sender.send("save-excel-files-done");
 });
 
+ipcMain.on("save-excel-file", async (event, archivos) => {
+  const folderPath = dialog.showOpenDialogSync({
+    properties: ["openDirectory"],
+    title: "Selecciona una carpeta para guardar el archivo Excel",
+  });
+
+  if (!folderPath || !folderPath[0]) return;
+
+  archivos.forEach((archivo) => {
+    const fullPath = path.join(folderPath[0], archivo.nombre);
+    fs.writeFileSync(fullPath, archivo.buffer);
+  });
+
+  event.sender.send("save-excel-file-done");
+});
+
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
