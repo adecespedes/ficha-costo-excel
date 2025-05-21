@@ -3,31 +3,33 @@ name: Build Electron App for Windows
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build Vite app
+      - name: Build Vite
         run: npm run build
 
-      - name: Make Windows executable
+      - name: Package Electron App
         run: npm run make
 
-      - name: Upload artifacts
+      - name: Upload Windows Executable
         uses: actions/upload-artifact@v3
         with:
-          name: windows-build
-          path: out/make/squirrel.windows/x64/*.exe
+          name: electron-windows-installer
+          path: |
+            out/make/**/*.exe
